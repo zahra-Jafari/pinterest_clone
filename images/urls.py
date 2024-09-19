@@ -2,8 +2,8 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from django.contrib import admin
 from . import views
-from .views import custom_logout_view
-from .views import profile_view
+from .views import custom_logout_view, login_view, profile_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,6 +12,7 @@ urlpatterns = [
     path('success/', views.success_view, name='success'),
     path('<int:image_id>/', views.image_detail, name='image_detail'),
     path('<int:image_id>/like/', views.image_like, name='image_like'),
+    #path('login/', login_view, name='login'),
     path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('signup/', views.SignUpView.as_view(), name='signup'),
     path('logout/', custom_logout_view, name='logout'),

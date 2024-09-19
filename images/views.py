@@ -4,7 +4,27 @@ from .forms import ImageForm, CommentForm, CategoryForm, SignUpForm, UserProfile
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views import generic
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
+from .forms import CustomLoginForm
+from django.contrib import messages
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = CustomLoginForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('image_list')
+        else:
+            for field in form.errors:
+                for error in form.errors[field]:
+                    messages.error(request, error)
+
+    else:
+        form = CustomLoginForm()
+
+    return render(request, 'login.html', {'form': form})
 
 
 def image_list(request):
@@ -61,7 +81,7 @@ def image_detail(request, id):
 
     if request.method == 'POST' and 'like' in request.POST:
         Like.objects.get_or_create(image=image, user=request.user)
-        return redirect('image_detail', id=image.id)  # جلوگیری از ارسال مجدد درخواست
+        return redirect('image_detail', id=image.id)
 
     if request.method == 'POST' and 'comment' in request.POST:
         comment_form = CommentForm(request.POST)
@@ -70,7 +90,7 @@ def image_detail(request, id):
             comment.image = image
             comment.user = request.user
             comment.save()
-            return redirect('image_detail', id=image.id)  # جلوگیری از ارسال مجدد درخواست
+            return redirect('image_detail', id=image.id)
     else:
         comment_form = CommentForm()
 
@@ -85,7 +105,7 @@ def image_like(request, image_id):
 
 def custom_logout_view(request):
     logout(request)
-    return redirect('image_list')  # یا هر صفحه‌ای که می‌خواهید کاربر پس از لاگ‌اوت به آن هدایت شود
+    return redirect('image_list')
 
 
 @login_required

@@ -3,6 +3,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 from .models import UserProfile
+from django.contrib.auth.forms import AuthenticationForm
+
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Username'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password'})
+    )
 
 
 class ImageForm(forms.ModelForm):
@@ -36,9 +46,9 @@ class CommentForm(forms.ModelForm):
 class ImageUploadForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = ['title', 'image', 'categories']  # افزودن 'categories' به لیست فیلدها
+        fields = ['title', 'image', 'categories']
         widgets = {
-            'categories': forms.CheckboxSelectMultiple,  # نمایش دسته‌بندی‌ها به صورت چندگانه
+            'categories': forms.CheckboxSelectMultiple,
         }
 
 
