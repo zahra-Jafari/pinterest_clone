@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Pinterest Clone!</h1>
+    <p class="lead">This is a simple Pinterest clone built with Django.</p>
+    <hr class="my-4">
+    <p>Explore the images, categories, and more.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    <a href="{% url 'image_upload' %}">Upload new image</a>
+</div>
+
+<div class="row">
+    {% for image in images %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ image.title }}</h5>
+                    <p class="card-text">{{ image.description }}</p>
+                    <a href="{% url 'image_detail' image.id %}" class="btn btn-primary">View Image</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

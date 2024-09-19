@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+    <div>
+        <h3>Categories</h3>
+        <ul>
+            {% for category in categories %}
+                <li><a href="?category={{ category.id }}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <ul>
+        {% for image in images %}
+            <li>
+                <a href="{% url 'image_detail' image.id %}">
+                    <img src="{{ image.image.url }}" alt="{{ image.title }}" width="100">
+                    <p>{{ image.title }}</p>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'image_upload' %}">Upload new image</a>
+
+{% endblock %}

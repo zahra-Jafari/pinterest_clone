@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+    <!-- User Profile Picture -->
+    <div class="text-center mb-4">
+        {% if user.profile_picture %}
+            <img src="{{ user.profilepicture.url }}" class="img-fluid rounded-circle" style="width:300px" alt="{{ user.username }}'s Profile Picture">
+        {% else %}
+            <img src="{% static 'defaultprofile.png' %}" class="img-fluid rounded-circle" style="width:300px" alt="Default Profile Picture">
+        {% endif %}
+    </div>
+    <h2 class="my-4">{{ user.username }}'s Profile</h2>
+    <p>Email: {{ user.email }}</p>
+
+    <h3 class="mt-4">Uploaded Images</h3>
+    <div class="row">
+        {% for image in user.images.all %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ image.title }}</h5>
+                        <p class="card-text">{{ image.description }}</p>
+                        <a href="{% url 'image_detail' image.id %}" class="btn btn-primary">View Image</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center">No images uploaded yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
