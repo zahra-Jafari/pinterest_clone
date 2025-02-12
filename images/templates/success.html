@@ -1,12 +1,26 @@
-<!-- templates/success.html -->
-
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
 <head>
-    <title>Success</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload New Image - Fast & Secure</title>
+    <meta name="description" content="Easily upload your images with our simple and secure image uploader. Select your file, add a title and description, and click upload.">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Upload Successful!</h1>
-    <p>Your image has been uploaded successfully.</p>
+<div class="congratulation-wrapper text-center mt-5">
+    <div class="congratulation-contents center-text">
+        <div class="congratulation-contents-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h4 class="congratulation-contents-title"> Congratulations! </h4>
+        <p class="congratulation-contents-para"> Your account is ready to submit proposals and get work. </p>
+        <div class="btn-wrapper mt-4">
+            <a href="{% url 'image_list' %}" class="cmn-btn btn-bg-1"> Go to Home </a>
+        </div>
+    </div>
+</div>
+
 </body>
-</html>
+{% endblock %}

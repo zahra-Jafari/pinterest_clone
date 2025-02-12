@@ -2,8 +2,11 @@ from .models import Image, Comment, Category
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import UserProfile
+from .models import Profile
 from django.contrib.auth.forms import AuthenticationForm
+
+
+
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -62,5 +65,6 @@ class SignUpForm(UserCreationForm):
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = UserProfile
+        model = Profile
         fields = ['profile_picture']
+

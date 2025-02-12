@@ -1,14 +1,70 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <h2>Sign Up</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
-    </div>
-</div>
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form by Colorlib</title>
+
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+
+                        {% if messages %}
+                        <div class="error-message">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" class="register-form" id="register-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.username.errors }}
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name" aria-hidden="true"></i></label>
+                                <input type="text" name="username" id="your_name" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email" aria-hidden="true"></i></label>
+                                {{ form.email.errors }}
+                                <input type="email" name="email" id="email" placeholder="Your Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock" aria-hidden="true"></i></label>
+                                {{ form.password1.errors }}
+                                <input type="password" name="password1" id="your_pass" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="re_pass"><i class="zmdi zmdi-lock-outline" aria-hidden="true"></i></label>
+                                {{ form.password2.errors }}
+                                <input type="password" name="password2" id="re_pass" placeholder="Repeat your password">
+                            </div>
+
+                            <div class="bg-2">
+                                <button type="submit" class="button1 button--nina button--text-thick button--text-upper button--size-s" data-text="Sign Up">
+                                    <span>S</span><span>i</span><span>g</span><span>n</span> <span>U</span><span>p</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sign up image"></figure>
+                        <a href="{% url 'login' %}" class="signup-image-link">I am already a member</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
 {% endblock %}

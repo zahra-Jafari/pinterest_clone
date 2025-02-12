@@ -1,7 +1,13 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-<div class="card">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<div class="container">
     <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
     <div class="card-body">
         <h5 class="card-title">{{ image.title }}</h5>

@@ -1,15 +1,36 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
 <head>
-    <title>Upload Image</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload New Image - Fast & Secure</title>
+    <meta name="description" content="Easily upload your images with our simple and secure image uploader. Select your file, add a title and description, and click upload.">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h1>Upload New Image</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload</button>
-    </form>
-    <a href="{% url 'image_list' %}">Back to images</a>
+    <div class="container">
+        <div class="signup-content">
+            <div>
+                <h2 class="form-title">Upload New Image</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" id="image-title" name="title" placeholder="Enter image title">
+                    <input type="file" id="image-upload" name="image">
+                    <textarea id="image-description" name="description" placeholder="Enter image description"></textarea>
+                    <div>
+                        <button type="submit" class="button1 button--nina button--text-thick button--text-upper button--size-s" data-text="Upload">
+                            <span>U</span><span>p</span><span>l</span><span>o</span><span>a</span><span>d</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="signup-image">
+                <figure><img src="{% static 'images/upload-form.jpg' %}" alt="sign up image"></figure>
+                <a href="{% url 'image_list' %}" class="signup-image-link">Back to Images</a>
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+{% endblock %}

@@ -1,104 +1,68 @@
 {% extends "base.html" %}
-
 {% block content %}
 {% load static %}
 <head>
-    <title>Login V1</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    <style>
-        .error-message {
-            color: red;
-            font-size: 0.875rem;
-            text-align: left;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign In Form by Colorlib</title>
+
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
 </head>
 <body>
-    <div class="limiter">
-        <div class="wrap-login100">
-            <div class="login100-pic js-tilt" data-tilt>
-                <img src="{% static 'images/img-01.png' %}" alt="IMG">
-            </div>
-            <form class="login100-form validate-form" method="post" action="{% url 'login' %}">
-                {% csrf_token %}
-                <span class="login100-form-title">
-                    Member Login
-                </span>
-
-                <!-- نمایش پیام‌های خطا -->
-                {% if messages %}
-                    <div class="error-message">
-                        {% for message in messages %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="{% static 'images/signin-image.jpg' %}" alt="sing up image"></figure>
+                        <a href="{% url 'signup' %}" class="signup-image-link">Create an account</a>
                     </div>
-                {% endif %}
 
-                <div class="wrap-input100 validate-input">
-                    {{ form.username.errors }}
-                    <input class="input100" type="text" name="username" placeholder="Username">
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </span>
+                    <div class="signin-form">
+
+                        <h2 class="form-title">Sign In</h2>
+
+                        {% if messages %}
+                        <div class="error-message">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <form method="POST" class="register-form" id="login-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.username.errors }}
+                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name" aria-hidden="true"></i></label>
+                                <input type="text" name="username" id="your_name" placeholder="Username">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="your_pass"><i class="zmdi zmdi-lock " aria-hidden="true"></i></label>
+                                {{ form.password.errors }}
+                                <input type="password" name="password" id="your_pass" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
+                            </div>
+
+                            <div class="bg-2">
+                                <button class="button1 button--nina button--text-thick button--text-upper button--size-s" data-text="Login">
+                                    <span>L</span><span>o</span><span>g</span><span>i</span><span>n</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    {{ form.password.errors }}
-                    <input class="input100" type="password" name="password" placeholder="Password">
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn">
-                        Login
-                    </button>
-                </div>
-
-                <div class="text-center p-t-20">
-                    <a class="txt2" href="{% url 'signup' %}">
-                        Create your Account
-                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!--===============================================================================================-->
-    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-    <!--===============================================================================================-->
-    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-    <!--===============================================================================================-->
-    <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
-    <!--===============================================================================================-->
-    <script src="{% static 'vendor/tilt/tilt.jquery.min.js' %}"></script>
-    <script >
-        $('.js-tilt').tilt({
-            scale: 1.1
-        })
-    </script>
-    <!--===============================================================================================-->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
 </body>
 {% endblock %}

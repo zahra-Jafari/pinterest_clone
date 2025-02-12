@@ -7,6 +7,50 @@ from django.views import generic
 from django.contrib.auth import logout, authenticate, login
 from .forms import CustomLoginForm
 from django.contrib import messages
+from .models import Profile
+import os
+
+
+# def profile_view(request):
+#     if request.method == "POST":
+#         form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('profile')  # یا مسیر دلخواه شما
+#     else:
+#         form = UserProfileForm(instance=request.user.profile)
+#
+#     return render(request, 'profile.html', {'form': form})
+
+
+
+
+def profile_view(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+
+    if request.method == "POST":
+        # اگر دکمه "حذف عکس" کلیک شده باشد
+        if "delete_picture" in request.POST:
+            if profile.profile_picture:
+                # حذف فایل عکس از سرور
+                if os.path.exists(profile.profile_picture.path):
+                    os.remove(profile.profile_picture.path)
+                # حذف عکس از دیتابیس (برمی‌گردد به عکس دیفالت)
+                profile.profile_picture = None
+                profile.save()
+            return redirect('profile')
+
+        # اگر عکس جدید آپلود شده باشد
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(request, 'profile.html', {'form': form, 'profile': profile})
+
 
 
 def login_view(request):
@@ -108,20 +152,37 @@ def custom_logout_view(request):
     return redirect('image_list')
 
 
-@login_required
-def profile_view(request):
-    user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-        if form.is_valid():
-            form.save()
-            return redirect('profile')
-    else:
-        form = UserProfileForm(instance=user_profile)
+# @login_required
+# def profile_view(request):
+#     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+#     if request.method == 'POST':
+#         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('profile')
+#     else:
+#         form = UserProfileForm(instance=user_profile)
+#
+#     context = {
+#         'user': request.user,
+#         'user_profile': user_profile,
+#         'form': form,
+#     }
+#     return render(request, 'profile.html')
 
-    context = {
-        'user': request.user,
-        'user_profile': user_profile,
-        'form': form,
-    }
-    return render(request, 'profile.html')
+
+
+
+
+# def profile_view(request):
+#     profile, created = Profile.objects.get_or_create(user=request.user)  # اگر پروفایل وجود ندارد، ایجاد کن
+#
+#     if request.method == "POST":
+#         form = UserProfileForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('profile')  # بعد از تغییر عکس، صفحه را رفرش کن
+#     else:
+#         form = UserProfileForm(instance=profile)
+#
+#     return render(request, 'profile.html', {'form': form, 'profile': profile})

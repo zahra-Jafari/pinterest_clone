@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pinterest Clone</title>
-
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
-         <span class="navbar-nav">
-             <a class="nav-link nav-item" href="{% url 'image_list' %}">Home</a></li>
-         </span>
-
+             <span class="navbar-nav">
+                 <a class="nav-link nav-item" href="{% url 'image_list' %}">Home</a>
+             </span>
             <span class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <span class="nav-item nav-item">
@@ -28,9 +27,9 @@
                     <a class="nav-link nav-item" href="{% url 'signup' %}">Sign Up</a>
                 {% endif %}
             </span>
+        </div>
     </nav>
-
-    <div class="container mt-4">
+    <div class="mt-4">
         {% block content %}
         {% endblock content %}
     </div>
@@ -40,4 +39,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
-

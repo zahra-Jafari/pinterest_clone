@@ -1,25 +1,28 @@
 {% extends "base.html" %}
-
 {% block content %}
-<div class="card">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<div class="container">
     <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
     <div class="card-body">
         <h5 class="card-title">{{ image.title }}</h5>
         <p class="card-text">{{ image.description }}</p>
-        <p>Category: {{ image.category.name }}</p>
 
         {% if user.is_authenticated %}
         <form method="post">
             {% csrf_token %}
-            <button type="submit" name="like">Like</button>
+            <button type="submit" name="like" style="background: white; border: 0;">
+                <img src="{% static 'like-icon-2048x1676-wjkvm94s.png' %}" width="30" >
+            </button>
             <span>{{ image.likes.count }} likes</span>
         </form>
         {% else %}
             <span>{{ image.likes.count }} likes</span>
             <p>Please <a href="{% url 'login' %}">login</a> to add a comment.</p>
         {% endif %}
-
-
 
         <hr>
         <h5>Comments</h5>
@@ -41,9 +44,6 @@
         {% else %}
             <p>Please <a href="{% url 'login' %}">login</a> to add a comment.</p>
         {% endif %}
-
-
-
     </div>
 </div>
 {% endblock %}
