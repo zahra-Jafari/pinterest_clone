@@ -9,7 +9,7 @@ SECRET_KEY = 'replace_with_your_secret_key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["pinterest-clone-jq45.onrender.com", "127.0.0.1", "localhost"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
