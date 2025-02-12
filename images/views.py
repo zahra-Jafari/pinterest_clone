@@ -24,7 +24,7 @@ import os
 
 
 
-
+@login_required
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
 
