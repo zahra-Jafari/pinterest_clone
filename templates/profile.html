@@ -23,6 +23,10 @@
         height: 30px;
         cursor: pointer;
     }
+    .test{
+    display: flex;
+    justify-content: center;
+}
 </style>
 
 <div class="container">
@@ -65,10 +69,7 @@
 <!--    </div>-->
 
 
-
-
-    <h3 class="mt-4">Uploaded Images</h3>
-    <div class="row">
+    <div class="test row">
         {% for image in user.images.all %}
             <div class="col-md-4">
                 <div class="card mb-4">
@@ -76,12 +77,17 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ image.title }}</h5>
                         <p class="card-text">{{ image.description }}</p>
-                        <a href="{% url 'image_detail' image.id %}" class="btn btn-primary">View Image</a>
+                        <a href="{% url 'image_detail' image.id %}" class="btn btn-primary"style="color: #fff; background-color: #588499; border-color: #588499;">View Image</a>
                     </div>
                 </div>
             </div>
+
         {% empty %}
-            <p class="text-center">No images uploaded yet.</p>
+        <div class="">
+            <dotlottie-player src="https://lottie.host/ad592483-03e3-412e-9b41-bfc06ab0983a/CONdhL9RpF.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" class="test" loop autoplay></dotlottie-player>
+            <p class="test">No images uploaded yet.</p>
+            <a href="{% url 'image_upload' %}" class="btn btn-primary" style="text-align: center;display: flex; justify-content: center; color: #fff; background-color: #588499; border-color: #588499; padding: 10px; margin: 20px; ">Upload new image</a>
+        </div>
         {% endfor %}
     </div>
 </div>
@@ -97,4 +103,7 @@
         document.getElementById("profile-picture-form").submit();
     });
 </script>
+
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
 {% endblock %}

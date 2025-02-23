@@ -40,6 +40,7 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         {% else %}
+            <p>Please <a href="{% url 'login' %}">login</a> to add a like.</p>
             <p>Please <a href="{% url 'login' %}">login</a> to add a comment.</p>
         {% endif %}
     </div>

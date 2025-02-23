@@ -1,27 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container">
-    <div class="jumbotron">
-        <h1 class="display-4">Welcome to Pinterest Clone!</h1>
-        <p class="lead">This is a simple Pinterest clone built with Django.</p>
-        <hr class="my-4">
-        <p>Explore the images, categories, and more.</p>
-        <a href="{% url 'image_upload' %}">Upload new image</a>
-    </div>
-    <div class="row">
-        {% for image in images %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ image.title }}</h5>
-                        <p class="card-text">{{ image.description }}</p>
-                        <a href="{% url 'image_detail' image.id %}" class="btn btn-primary">View Image</a>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome to Pinterest Clone!</h1>
+            <p class="lead">Designed by Zahra Jandaghi Jafari.</p>
+            <hr class="my-4">
+            <div style="text-align: center; display: flex; justify-content: center;">
+                <dotlottie-player src="https://lottie.host/d5677d7d-cee3-44ad-99d5-ef8cc1759942/OJUGzHovhx.lottie" background="transparent" speed="0.5" style="width: 300px; height: 300px " loop autoplay></dotlottie-player>
+            </div>
+            <a href="{% url 'image_upload' %}" class="btn btn-primary" style="text-align: center;display: flex; justify-content: center; color: #fff; background-color: #588499; border-color: #588499;">Upload new image</a>
+        </div>
+        <div class="row">
+            {% for image in images %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ image.title }}</h5>
+                            <p class="card-text">{{ image.description }}</p>
+                            <a href="{% url 'image_detail' image.id %}" class="btn btn-primary" style="color: #fff; background-color: #588499; border-color: #588499;">View Image</a>
+<!--                            <div class="bg-3">-->
+<!--                                <a href="{% url 'image_detail' image.id %}" class="test button1 button&#45;&#45;tamaya button&#45;&#45;round-s button&#45;&#45;text-thick button&#45;&#45;border-thin" data-text="View Image"><span>View Image</span></a>-->
+<!--                            </div>-->
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-</div>
+</body>
+            <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
 {% endblock %}
