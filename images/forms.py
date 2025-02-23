@@ -6,9 +6,6 @@ from .models import Profile
 from django.contrib.auth.forms import AuthenticationForm
 
 
-
-
-
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Username'})

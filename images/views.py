@@ -23,11 +23,9 @@ import os
 #     return render(request, 'profile.html', {'form': form})
 
 
-
 @login_required
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
-
     if request.method == "POST":
         # اگر دکمه "حذف عکس" کلیک شده باشد
         if "delete_picture" in request.POST:
@@ -45,12 +43,9 @@ def profile_view(request):
         if form.is_valid():
             form.save()
             return redirect('profile')
-
     else:
         form = UserProfileForm(instance=profile)
-
     return render(request, 'profile.html', {'form': form, 'profile': profile})
-
 
 
 def login_view(request):
@@ -64,10 +59,8 @@ def login_view(request):
             for field in form.errors:
                 for error in form.errors[field]:
                     messages.error(request, error)
-
     else:
         form = CustomLoginForm()
-
     return render(request, 'login.html', {'form': form})
 
 
@@ -169,9 +162,6 @@ def custom_logout_view(request):
 #         'form': form,
 #     }
 #     return render(request, 'profile.html')
-
-
-
 
 
 # def profile_view(request):
