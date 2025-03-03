@@ -725,6 +725,11 @@ label.valid {
         margin-inline: auto;
     }
     .congratulation-contents-icon {
+        height: 200px;
+        width: 200px;
+        font-size: 50px;
+        border-radius: 50%;
+        margin-bottom: 30px;
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -734,11 +739,7 @@ label.valid {
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        height: 200px;
-        width: 200px;
-        font-size: 50px;
-        border-radius: 50%;
-        margin-bottom: 30px;
+
     }
     .congratulation-contents-title {
         font-size: 32px;
