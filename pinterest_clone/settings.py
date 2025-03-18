@@ -10,6 +10,7 @@ SECRET_KEY = 'replace_with_your_secret_key'
 DEBUG = True
 
 ALLOWED_HOSTS = ["pinterest-clone-jq45.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ['zahrajj.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -99,3 +100,5 @@ LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+
