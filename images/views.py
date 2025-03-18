@@ -153,18 +153,17 @@ def image_detail(request, id):
 
     return render(request, 'images/image_detail.html', {'image': image, 'comment_form': comment_form})
 
+@login_required
+def view_cart(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    return render(request, 'cart.html', {'cart': cart})
+
 
 def add_to_cart(request, image_id):
     image = get_object_or_404(Image, id=image_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart.images.add(image)
     return redirect('cart')
-
-
-@login_required
-def view_cart(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    return render(request, 'cart.html', {'cart': cart})
 
 
 def image_like(request, image_id):
