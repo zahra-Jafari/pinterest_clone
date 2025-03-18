@@ -156,7 +156,7 @@ def image_detail(request, id):
 @login_required
 def view_cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
-    return render(request, 'images/cart.html', {'cart': cart})
+    return render(request, 'cart.html', {'cart': cart})
 
 
 def add_to_cart(request, image_id):
