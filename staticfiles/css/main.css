@@ -256,6 +256,71 @@ a{
 
 
 
+
+.profile-container {
+    position: relative;
+    display: inline-block;
+    padding: 10px;
+}
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.delete-button {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+.test{
+    display: flex;
+    justify-content: center;
+}
+
+.btn-logoff{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn-logoff:hover {
+    color: #fff;
+    background-color: #c21b2b;
+    border-color: #c21b2b;
+}
+
+.upload-btn {
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    position: fixed;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    transform-origin: right;
+}
+
+.upload-btn:hover {
+    transform: scale(1.3); /* هنگام هاور کمی بزرگ‌تر شود */
+}
+
+@media (max-width: 600px) {
+    .upload-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+
 .shopping-cart {
   width: 80%;
   margin: auto;
@@ -267,8 +332,9 @@ a{
 
 .title {
   font-size: 22px;
-  font-weight: bold;
+  font-weight: ;
   margin-bottom: 20px;
+  margin-top: 40px;
   text-align: center;
 }
 
@@ -285,6 +351,7 @@ a{
   height: 80px;
   object-fit: cover;
   border-radius: 5px;
+  margin: 10px;
 }
 
 .description {
@@ -295,6 +362,8 @@ a{
 .total-price {
   font-size: 18px;
   font-weight: bold;
+  margin-right: 10px;
+  padding-top: 10px;
 }
 
 .buy-button .btn {
@@ -311,3 +380,30 @@ a{
   text-decoration: none;
 }
 
+
+
+.addtocart{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -20px;
+    margin-top: 5px;
+}
+
+.pad-text{
+    padding: 0;
+}
+
+.pad-img{
+    padding-right:0;
+}
+
+textarea {
+    width: 100%;
+    height: 160px; /* تغییر ارتفاع */
+    resize: vertical; /* اجازه تغییر سایز به صورت عمودی */
+}
+
+.empty{
+    display: flex;
+    justify-content: center;
+}
