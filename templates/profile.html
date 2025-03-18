@@ -1,100 +1,59 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<style>
-
-    .profile-container {
-        position: relative;
-        display: inline-block;
-        padding: 10px;
-    }
-    .profile-picture {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .delete-button {
-        position: absolute;
-        bottom: 5px;
-        right: 5px;
-        width: 30px;
-        height: 30px;
-        cursor: pointer;
-    }
-    .test{
-        display: flex;
-        justify-content: center;
-    }
-
-    .btn-logoff{
-        color: #fff;
-        background-color: #dc3545;
-        border-color: #dc3545;
-    }
-    .btn-logoff:hover {
-        color: #fff;
-        background-color: #c21b2b;
-        border-color: #c21b2b;
-    }
-</style>
 
 <div class="container">
-    <!-- User Profile Picture -->
     <div class="text-center mb-4">
         <form method="POST" enctype="multipart/form-data" id="profile-picture-form">
             {% csrf_token %}
             <div class="profile-container">
-                <!-- نمایش عکس پروفایل یا عکس دیفالت -->
             {% if user.profile.profile_picture %}
-                <img src="{{ user.profile.profile_picture.url }}" class="img-fluid rounded-circle" style="width:150px">
-                <!-- دکمه حذف عکس (آیکون سطل زباله) -->
-                <button type="submit" name="delete_picture" class="btn btn-link p-0 border-0">
-                    <img src="{% static '3807871.png' %}" class="delete-button" style="width:30px">
-                </button>
+                <div>
+                    <img src="{{ user.profile.profile_picture.url }}" class="img-fluid rounded-circle" style="width:150px">
+                    <button type="submit" name="delete_picture" class="btn btn-link p-0 border-0">
+                        <img src="{% static '3807871.png' %}" class="delete-button" style="width:30px">
+                    </button>
+                </div>
             {% else %}
                 <img src="{% static 'defaultprofile.png' %}" class="img-fluid rounded-circle" style="width:150px">
             {% endif %}
             </div>
-
-            <div style="padding-top: 50px">
-                    <!-- دکمه آپلود عکس جدید -->
+            <h2 class="my-4"><b>{{ user.username }}</b></h2>
+            <div style="padding-bottom: 50px">
                 <input type="file" name="profile_picture" id="id_profile_picture" class="d-none" accept="image/*">
-                <button type="button" class="btn btn-success" id="upload-button">Update Profile Picture</button>
+                <button type="button" class="main-btn btn text-black" id="upload-button">Edit Profile</button>
             </div>
         </form>
-
-        <div style="padding-top: 10px; padding-bottom: 50px;">
-            <form id="logout-form" action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button class="btn btn-logoff" type="submit">Logout</button>
-            </form>
-        </div>
-
     </div>
 
-    <div>
-        <h2 class="my-4">{{ user.username }}'s Profile</h2>
-        <p>Email: {{ user.email }}</p>
-    </div>
-    <div class="test row">
+<!--    <div>-->
+<!--        <p>Email: {{ user.email }}</p>-->
+<!--    </div>-->
+
+    <div class="body-w" style="padding-bottom: 50px;">
         {% for image in user.images.all %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ image.title }}</h5>
-                        <a href="{% url 'image_detail' image.id %}" class="btn btn-primary"style="color: #fff; background-color: #588499; border-color: #588499;">View Image</a>
-                    </div>
+        <a href="{% url 'image_detail' image.id %}" class="c-a">
+            <div class="image-container">
+                <div class="image-container">
+                    <img src="{{ image.image.url }}" class="image" alt="{{ image.title }}">
+                    <div class="overlay">
+                    {% if image.user.profile.profile_picture %}
+                        <img src="{{ image.user.profile.profile_picture.url  }}" class="profile-pic" alt="{{ image.user.username }}">
+                    {% else %}
+                        <img src="{% static 'defaultprofile.png' %}" class="profile-pic" alt="Default Profile">
+                    {% endif %}
+                    <span class="uploader-name">{{ image.user.username }}</span>
+                </div>
                 </div>
             </div>
-
+        </a>
         {% empty %}
         <div>
-            <dotlottie-player src="https://lottie.host/ad592483-03e3-412e-9b41-bfc06ab0983a/CONdhL9RpF.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" class="test" loop autoplay></dotlottie-player>
+
+            <a href="{% url 'image_upload' %}" class="" style="text-align: center;display: flex; justify-content: center; margin: 20px; ">
+                <dotlottie-player src="https://lottie.host/ad592483-03e3-412e-9b41-bfc06ab0983a/CONdhL9RpF.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" class="test" loop autoplay></dotlottie-player>
+            </a>
             <p class="test">No images uploaded yet.</p>
-            <a href="{% url 'image_upload' %}" class="btn btn-primary" style="text-align: center;display: flex; justify-content: center; color: #fff; background-color: #588499; border-color: #588499; padding: 10px; margin: 20px; ">Upload new image</a>
         </div>
         {% endfor %}
     </div>

@@ -1,35 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
+{% load static %}
 
 <body>
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">Welcome to Pinterest Clone!</h1>
-            <p class="lead">Designed by Zahra Jandaghi Jafari.</p>
-            <hr class="my-4">
-            <div style="text-align: center; display: flex; justify-content: center;">
-                <dotlottie-player src="https://lottie.host/d5677d7d-cee3-44ad-99d5-ef8cc1759942/OJUGzHovhx.lottie" background="transparent" speed="0.5" style="width: 300px; height: 300px " loop autoplay></dotlottie-player>
-            </div>
-            <a href="{% url 'image_upload' %}" class="btn btn-primary" style="text-align: center;display: flex; justify-content: center; color: #fff; background-color: #588499; border-color: #588499;">Upload new image</a>
-        </div>
-        <div class="row">
-            {% for image in images %}
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ image.title }}</h5>
-                            <a href="{% url 'image_detail' image.id %}" class="btn btn-primary" style="color: #fff; background-color: #588499; border-color: #588499;">View Image</a>
-<!--                            <div class="bg-3">-->
-<!--                                <a href="{% url 'image_detail' image.id %}" class="test button1 button&#45;&#45;tamaya button&#45;&#45;round-s button&#45;&#45;text-thick button&#45;&#45;border-thin" data-text="View Image"><span>View Image</span></a>-->
-<!--                            </div>-->
-                        </div>
-                    </div>
+    <div class="body-w">
+        {% for image in images %}
+        <a href="{% url 'image_detail' image.id %}" class="c-a">
+            <div class="image-container">
+                <img src="{{ image.image.url }}" class="image" alt="{{ image.title }}">
+                <div class="overlay">
+                    {% if image.user.profile.profile_picture %}
+                        <img src="{{ image.user.profile.profile_picture.url  }}" class="profile-pic" alt="{{ image.user.username }}">
+                    {% else %}
+                        <img src="{% static 'defaultprofile.png' %}" class="profile-pic" alt="Default Profile">
+                    {% endif %}
+                    <span class="uploader-name">{{ image.user.username }}</span>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="upload-btn">
+        <a href="{% url 'image_upload' %}" class="" >
+            <dotlottie-player src="https://lottie.host/d5677d7d-cee3-44ad-99d5-ef8cc1759942/OJUGzHovhx.lottie" background="transparent" speed="0.5" style="width: 100px; height: 100px " loop autoplay></dotlottie-player>
+        </a>
     </div>
 </body>
-            <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 
 {% endblock %}

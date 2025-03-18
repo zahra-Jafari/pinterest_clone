@@ -12,7 +12,7 @@
     <div class="card-body">
         <h5 class="card-title">{{ image.title }}</h5>
         <p class="card-text">{{ image.description }}</p>
-        <p>Category: {{ image.category.name }}</p>
+
         <form method="post">
             {% csrf_token %}
             <button type="submit" name="like">Like</button>
@@ -46,3 +46,5 @@
     </div>
 </div>
 {% endblock %}
+
+

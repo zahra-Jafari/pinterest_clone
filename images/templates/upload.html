@@ -12,13 +12,17 @@
 <body>
     <div class="container">
         <div class="signup-content">
-            <div>
+            <div style="margin-left: 20px;">
                 <h2 class="form-title">Upload New Image</h2>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="text" id="image-title" name="title" placeholder="Enter image title">
                     <input type="file" id="image-upload" name="image">
                     <textarea id="image-description" name="description" placeholder="Enter image description"></textarea>
+                    <div class="price-section">
+                        <input type="number" id="image-price" name="price" placeholder="Enter price">
+                    </div>
+                    {{ form.new_category }}
                     <div>
                         <button type="submit" class="button1 button--nina button--text-thick button--text-upper button--size-s" data-text="Upload">
                             <span>U</span><span>p</span><span>l</span><span>o</span><span>a</span><span>d</span>

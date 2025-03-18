@@ -1,9 +1,7 @@
-from .models import Image, Comment, Category
-from django.contrib.auth.forms import UserCreationForm
+from .models import Image, Comment, Category, Profile
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Profile
-from django.contrib.auth.forms import AuthenticationForm
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -16,16 +14,25 @@ class CustomLoginForm(AuthenticationForm):
 
 
 class ImageForm(forms.ModelForm):
-    new_category = forms.CharField(max_length=100, required=False, label='Add new category')
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
+    new_category = forms.CharField(
+        max_length=255,
+        required=False,
+        label="New Category",
+        widget=forms.TextInput(attrs={'placeholder': 'Enter new category'})
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # مقداردهی صحیح super()
+        self.fields['categories'].queryset = Category.objects.all()
 
     class Meta:
         model = Image
-        fields = ['title', 'image', 'description', 'categories']
+        fields = ['title', 'image', 'description', 'price', 'categories', 'new_category']
 
 
 class CategoryForm(forms.ModelForm):
@@ -64,4 +71,5 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_picture']
+
 

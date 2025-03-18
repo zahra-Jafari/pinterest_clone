@@ -1,26 +1,32 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Image, Like, Comment, Category, UserProfile
-from .forms import ImageForm, CommentForm, CategoryForm, SignUpForm, UserProfileForm
+from .models import Image, Like, Comment, Cart, Category, UserProfile, Profile
+from .forms import ImageForm, CommentForm, CategoryForm, SignUpForm, UserProfileForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
-from django.views import generic
 from django.contrib.auth import logout, authenticate, login
-from .forms import CustomLoginForm
+from django.urls import reverse_lazy
 from django.contrib import messages
-from .models import Profile
+from django.views import generic
+from django.db.models import Q
+from images import models
 import os
 
+from django.http import HttpResponse
+from PIL import Image as PILImage
 
-# def profile_view(request):
-#     if request.method == "POST":
-#         form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('profile')  # یا مسیر دلخواه شما
-#     else:
-#         form = UserProfileForm(instance=request.user.profile)
-#
-#     return render(request, 'profile.html', {'form': form})
+
+
+def low_quality_image_view(request, image_id):
+    image_obj = Image.objects.get(id=image_id)
+
+    img = PILImage.open(image_obj.image.path)
+    img = img.convert("RGB")
+    img.thumbnail((300, 300))
+
+    response = HttpResponse(content_type="image/jpeg")
+    img.save(response, "JPEG", quality=30)  # ارسال با کیفیت ۳۰٪
+    return response
+
+
 
 
 @login_required
@@ -64,17 +70,36 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 
-def image_list(request):
-    category_id = request.GET.get('category')
-    if category_id:
-        try:
-            images = Image.objects.filter(categories__id=category_id)
-        except Category.DoesNotExist:
-            images = Image.objects.none()
-    else:
-        images = Image.objects.all().order_by('-created_at')
+# def image_list(request):
+#     category_id = request.GET.get('category')
+#     if category_id:
+#         try:
+#             images = Image.objects.filter(categories__id=category_id)
+#         except Category.DoesNotExist:
+#             images = Image.objects.none()
+#     else:
+#         images = Image.objects.all().order_by('-created_at')
+#
+#     return render(request, 'image_list.html', {'images': images})
 
-    return render(request, 'image_list.html', {'images': images})
+
+def image_list(request):
+    query = request.GET.get('q', '')
+    category_id = request.GET.get('category', '')
+    images = Image.objects.all()
+
+    if query:
+        images = images.filter(
+            Q(title__icontains=query) |  # جستجو در عنوان تصویر
+            Q(categories__name__icontains=query)  # جستجو در نام دسته‌بندی
+        ).distinct()  # جلوگیری از نتایج تکراری
+
+    if category_id:
+        images = images.filter(categories__id=category_id)
+
+
+    categories = Category.objects.all()
+    return render(request, 'image_list.html', {'images': images, 'categories': categories})
 
 
 class SignUpView(generic.CreateView):
@@ -91,21 +116,16 @@ def image_upload(request):
             image = form.save(commit=False)
             image.user = request.user
             image.save()
+            form.save_m2m()  # Save categories
 
             new_category_name = form.cleaned_data.get('new_category')
             if new_category_name:
-                category, created = Category.objects.get_or_create(name=new_category_name)
-                if created:
-                    print(f'New category created: {category.name}')
-                image.categories.add(category)
-
-            form.save_m2m()
+                new_category, created = Category.objects.get_or_create(name=new_category_name)
+                image.categories.add(new_category)
 
             return redirect('success')
-
     else:
         form = ImageForm()
-
     return render(request, 'upload.html', {'form': form})
 
 
@@ -134,6 +154,19 @@ def image_detail(request, id):
     return render(request, 'images/image_detail.html', {'image': image, 'comment_form': comment_form})
 
 
+def add_to_cart(request, image_id):
+    image = get_object_or_404(Image, id=image_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart.images.add(image)
+    return redirect('cart')
+
+
+@login_required
+def view_cart(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    return render(request, 'cart.html', {'cart': cart})
+
+
 def image_like(request, image_id):
     image = get_object_or_404(Image, id=image_id)
     Like.objects.get_or_create(image=image, user=request.user)
@@ -145,34 +178,10 @@ def custom_logout_view(request):
     return redirect('image_list')
 
 
-# @login_required
-# def profile_view(request):
-#     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
-#     if request.method == 'POST':
-#         form = UserProfileForm(request.POST, request.FILES, instance=user_profile)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('profile')
-#     else:
-#         form = UserProfileForm(instance=user_profile)
-#
-#     context = {
-#         'user': request.user,
-#         'user_profile': user_profile,
-#         'form': form,
-#     }
-#     return render(request, 'profile.html')
+@login_required
+def remove_from_cart(request, image_id):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    image = get_object_or_404(Image, id=image_id)
+    cart.images.remove(image)
+    return redirect('cart')
 
-
-# def profile_view(request):
-#     profile, created = Profile.objects.get_or_create(user=request.user)  # اگر پروفایل وجود ندارد، ایجاد کن
-#
-#     if request.method == "POST":
-#         form = UserProfileForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('profile')  # بعد از تغییر عکس، صفحه را رفرش کن
-#     else:
-#         form = UserProfileForm(instance=profile)
-#
-#     return render(request, 'profile.html', {'form': form, 'profile': profile})
