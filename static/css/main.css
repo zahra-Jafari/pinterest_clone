@@ -305,7 +305,7 @@ a{
 }
 
 .upload-btn:hover {
-    transform: scale(1.3); /* هنگام هاور کمی بزرگ‌تر شود */
+    transform: scale(1.3);
 }
 
 @media (max-width: 600px) {

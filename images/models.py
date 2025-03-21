@@ -32,20 +32,19 @@ class Image(models.Model):
     low_quality_image = models.ImageField(upload_to='images/low_quality/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        """ ایجاد نسخه کم‌کیفیت هنگام ذخیره عکس اصلی """
-        super().save(*args, **kwargs)  # ابتدا تصویر اصلی ذخیره شود
+        super().save(*args, **kwargs)
 
         if self.image and not self.low_quality_image:
             image_path = self.image.path
             img = PILImage.open(image_path)
             img = img.convert("RGB")
-            img.thumbnail((300, 300))  # تغییر اندازه برای کیفیت کمتر
+            img.thumbnail((300, 300))
 
             low_quality_path = os.path.join(os.path.dirname(image_path), "low_quality_" + os.path.basename(image_path))
-            img.save(low_quality_path, "JPEG", quality=30)  # ذخیره با کیفیت کمتر
+            img.save(low_quality_path, "JPEG", quality=60)
 
             self.low_quality_image.name = "images/low_quality/" + os.path.basename(low_quality_path)
-            super().save(update_fields=['low_quality_image'])  # ذخیره فیلد جدید
+            super().save(update_fields=['low_quality_image'])
 
     def __str__(self):
         return self.title
@@ -73,6 +72,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.image.title}"
+
+
+
+
+
+
+
 
 
 class UserProfile(models.Model):

@@ -84,11 +84,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 STATICFILES_DIRS = [BASE_DIR / 'static']
-
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
@@ -101,6 +100,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 
 

@@ -1,50 +1,84 @@
 {% extends "base.html" %}
-{% load static %}
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
+{% load static %}
 
-<div class="container">
-    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.title }}">
-    <div class="card-body">
-        <h5 class="card-title">{{ image.title }}</h5>
-        <p class="card-text">{{ image.description }}</p>
 
-        <form method="post">
+<div class="col-md-2"></div>
+
+<div class="col-md-8 pt-2 pb-2 row pin-detail-container">
+
+
+
+    <div class="col-md-6">
+        <img src="{% url 'low_quality_image' image.id %}" class="pin-detail-img " alt="Low Quality Preview">
+    </div>
+    <div class="col-md-6">
+
+        <form action="{% url 'add_to_cart' image.id %}" method="post" class=" addtocart">
             {% csrf_token %}
-            <button type="submit" name="like">Like</button>
-            <span>{{ image.likes.count }} likes</span>
+            <a href="{% url 'add_to_cart' image.id %}"><svg width="40px" height="40px" viewBox="0 0 32 32" id="svg5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(-12,-244)"> <path d="m 37,250.00586 c -2.960901,0 -5.434401,2.17093 -5.914062,5 H 16.628906 c -1.625268,0 -2.862846,1.51426 -2.58789,3.10156 l 2.27539,13.13672 c 0.278528,1.60786 1.699779,2.76172 3.3125,2.76172 h 16.767578 c 1.61436,0 3.012976,-1.16097 3.310547,-2.74805 a 1.0001,1.0001 0 0 0 0.002,-0.0137 l 1.998,-11.52731 C 42.515917,258.69406 43,257.40433 43,256.00586 c 0,-3.30186 -2.698143,-6 -6,-6 z m 0,2 c 2.220979,0 4,1.77902 4,4 0,2.22098 -1.779021,4 -4,4 -2.220979,0 -4,-1.77902 -4,-4 0,-2.22098 1.779021,-4 4,-4 z m -20.371094,5 h 14.457032 c 0.479661,2.82907 2.953161,5 5.914062,5 0.839976,0 1.639835,-0.17549 2.367188,-0.49024 l -1.625,9.375 c -0.122524,0.65348 -0.680468,1.11524 -1.345704,1.11524 H 19.628906 c -0.666872,0 -1.233178,-0.46327 -1.34375,-1.10156 l -2.27539,-13.13672 c -0.07374,-0.42572 0.201415,-0.76172 0.61914,-0.76172 z" id="path43283" style="color:#877373;fill:#877373;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none"></path> <path d="m 23.304687,246.07227 a 1,1 0 0 0 -0.55664,0.52734 l -4,9 a 1,1 0 0 0 0.507812,1.32031 1,1 0 0 0 1.320313,-0.50781 l 4,-9 a 1,1 0 0 0 -0.507813,-1.32031 1,1 0 0 0 -0.763672,-0.0195 z" id="path43285" style="color:#877373;fill:#877373;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none"></path> <path d="m 32.466797,246.01172 c -0.174002,-0.0184 -0.349776,0.009 -0.509766,0.0801 -0.50494,0.22425 -0.73234,0.81549 -0.507812,1.32031 l 1.759765,3.95898 c 0.516981,-0.42442 1.103473,-0.76593 1.742188,-1 l -1.675781,-3.77148 c -0.107652,-0.24238 -0.307179,-0.43207 -0.554688,-0.52734 -0.08163,-0.0312 -0.166989,-0.0515 -0.253906,-0.0606 z" id="path43287" style="color:#877373;fill:#877373;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none"></path> <path d="m 28,259.00586 a 1,1 0 0 0 -1,1 v 8 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -8 a 1,1 0 0 0 -1,-1 z" id="path43289" style="color:#877373;fill:#877373;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none"></path> <path d="m 24,259.00586 a 1,1 0 0 0 -1,1 v 8 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -8 a 1,1 0 0 0 -1,-1 z" id="path43291" style="color:#877373;fill:#877373;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none"></path> <path d="m 32,262.00586 a 1,1 0 0 0 -1,1 v 5 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -5 a 1,1 0 0 0 -1,-1 z" id="path43293" style="color:#877373;fill:#877373;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none"></path> <path d="m 37,253.00586 a 1,1 0 0 0 -1,1 v 1 h -1 a 1,1 0 0 0 -1,1 1,1 0 0 0 1,1 h 1 v 1 a 1,1 0 0 0 1,1 1,1 0 0 0 1,-1 v -1 h 1 a 1,1 0 0 0 1,-1 1,1 0 0 0 -1,-1 h -1 v -1 a 1,1 0 0 0 -1,-1 z" id="path43297" style="color:#877373;fill:#877373;fill-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4.1;-inkscape-stroke:none"></path> </g> </g></svg></a>
         </form>
 
+        <h1><b>{{ image.title }}</b></h1>
+        <p class="mt-3">{{ image.description }}</p>
+
+
+        <div class="row align-items-center">
+            <div class="col-md-2 pad-img">
+                {% if image.user.profile.profile_picture %}
+                <img src="{{ image.user.profile.profile_picture.url }}" class="rounded-circle" width="50" height="50">
+                {% else %}
+                    <img src="{% static 'defaultprofile.png' %}" class="rounded-circle" alt="Default Profile" width="50" height="50">
+                {% endif %}
+            </div>
+            <div class="col-md-7 pad-text">
+                <b>{{ image.user.username }}</b>
+            </div>
+        </div>
+
+
+        <h3 class="mt-3 text-success"><b>${{ image.price|floatformat:0 }}</b></h3>
+
+        {% if user.is_authenticated %}
+
+        <div class="mt-3">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" name="like" style="background: white; border: 0;">
+                    <img src="{% static 'like-icon-2048x1676-wjkvm94s.png' %}" width="30" >
+                </button>
+                <span>{{ image.likes.count }} likes</span>
+            </form>
+            {% else %}
+                <span>{{ image.likes.count }} likes</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div>
         <hr>
         <h5>Comments</h5>
         {% for comment in image.comments.all %}
-            <div class="media mb-3">
-                <div class="media-body">
-                    <h6 class="mt-0">{{ comment.user.username }}</h6>
-                    <p>{{ comment.text }}</p>
+        <div class="row mt-3">
+            <div class="col-md-1">
+                <img src="{{ comment.user.profile.profile_picture.url }}" class="rounded-circle" width="40" height="40">
+            </div>
+            <div class="col-md-10">
+                <div class="border p-2 rounded">
+                    <b>{{ comment.user.username }}</b>
+                    <p class="text-muted">{{ comment.text }}</p>
                 </div>
             </div>
+        </div>
         {% endfor %}
 
         {% if user.is_authenticated %}
-            <form method="post" action="{% url 'add_comment' image.id %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="comment">Add a comment:</label>
-                    <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        {% else %}
-            <p>Please <a href="{% url 'login' %}">login</a> to add a like.</p>
-            <p>Please <a href="{% url 'login' %}">login</a> to add a comment.</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-secondary mt-2"  name="comment">Add Comment</button>
+        </form>
         {% endif %}
     </div>
 </div>
 {% endblock %}
-
-

@@ -7,12 +7,10 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import generic
 from django.db.models import Q
-from images import models
-import os
-
 from django.http import HttpResponse
 from PIL import Image as PILImage
-
+from images import models
+import os
 
 
 def low_quality_image_view(request, image_id):
@@ -23,28 +21,23 @@ def low_quality_image_view(request, image_id):
     img.thumbnail((300, 300))
 
     response = HttpResponse(content_type="image/jpeg")
-    img.save(response, "JPEG", quality=30)  # ارسال با کیفیت ۳۰٪
+    img.save(response, "JPEG", quality=60)
     return response
-
-
 
 
 @login_required
 def profile_view(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == "POST":
-        # اگر دکمه "حذف عکس" کلیک شده باشد
         if "delete_picture" in request.POST:
             if profile.profile_picture:
-                # حذف فایل عکس از سرور
+
                 if os.path.exists(profile.profile_picture.path):
                     os.remove(profile.profile_picture.path)
-                # حذف عکس از دیتابیس (برمی‌گردد به عکس دیفالت)
                 profile.profile_picture = None
                 profile.save()
             return redirect('profile')
 
-        # اگر عکس جدید آپلود شده باشد
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
@@ -70,19 +63,6 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 
-# def image_list(request):
-#     category_id = request.GET.get('category')
-#     if category_id:
-#         try:
-#             images = Image.objects.filter(categories__id=category_id)
-#         except Category.DoesNotExist:
-#             images = Image.objects.none()
-#     else:
-#         images = Image.objects.all().order_by('-created_at')
-#
-#     return render(request, 'image_list.html', {'images': images})
-
-
 def image_list(request):
     query = request.GET.get('q', '')
     category_id = request.GET.get('category', '')
@@ -90,13 +70,12 @@ def image_list(request):
 
     if query:
         images = images.filter(
-            Q(title__icontains=query) |  # جستجو در عنوان تصویر
-            Q(categories__name__icontains=query)  # جستجو در نام دسته‌بندی
-        ).distinct()  # جلوگیری از نتایج تکراری
+            Q(title__icontains=query) |
+            Q(categories__name__icontains=query)
+        ).distinct()
 
     if category_id:
         images = images.filter(categories__id=category_id)
-
 
     categories = Category.objects.all()
     return render(request, 'image_list.html', {'images': images, 'categories': categories})
@@ -116,7 +95,7 @@ def image_upload(request):
             image = form.save(commit=False)
             image.user = request.user
             image.save()
-            form.save_m2m()  # Save categories
+            form.save_m2m()
 
             new_category_name = form.cleaned_data.get('new_category')
             if new_category_name:
@@ -153,6 +132,7 @@ def image_detail(request, id):
 
     return render(request, 'images/image_detail.html', {'image': image, 'comment_form': comment_form})
 
+
 @login_required
 def view_cart(request):
     cart, created = Cart.objects.get_or_create(user=request.user)
@@ -166,17 +146,6 @@ def add_to_cart(request, image_id):
     return redirect('cart')
 
 
-def image_like(request, image_id):
-    image = get_object_or_404(Image, id=image_id)
-    Like.objects.get_or_create(image=image, user=request.user)
-    return redirect('image_detail', image_id=image.id)
-
-
-def custom_logout_view(request):
-    logout(request)
-    return redirect('image_list')
-
-
 @login_required
 def remove_from_cart(request, image_id):
     cart, created = Cart.objects.get_or_create(user=request.user)
@@ -184,3 +153,13 @@ def remove_from_cart(request, image_id):
     cart.images.remove(image)
     return redirect('cart')
 
+
+def custom_logout_view(request):
+    logout(request)
+    return redirect('image_list')
+
+
+def image_like(request, image_id):
+    image = get_object_or_404(Image, id=image_id)
+    Like.objects.get_or_create(image=image, user=request.user)
+    return redirect('image_detail', image_id=image.id)
