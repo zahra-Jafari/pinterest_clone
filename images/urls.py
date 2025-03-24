@@ -21,5 +21,6 @@ urlpatterns = [
     path('add_to_cart/<int:image_id>/', add_to_cart, name='add_to_cart'),
     path('cart/remove/<int:image_id>/', remove_from_cart, name='remove_from_cart'),
     path('low_quality/<int:image_id>/', low_quality_image_view, name='low_quality_image'),
+    path('help/', views.help_page, name='help_page'),
 ]
 

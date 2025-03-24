@@ -257,7 +257,10 @@ h2 {
   margin: 0 55px; }
 
 .form-title {
-  margin-bottom: 33px; }
+  margin-bottom: 33px;
+  display: flex;
+  justify-content: center;
+   }
 
 .signup-image {
   margin-top: 45px; }
@@ -290,7 +293,9 @@ figure {
   font-size: 14px;
   color: #222;
   display: block;
-  text-align: center; }
+  text-align: center;
+  text-decoration: underline;
+  }
 
 .term-service {
   font-size: 13px;
@@ -307,7 +312,10 @@ figure {
 .form-group {
   position: relative;
   margin-bottom: 25px;
-  overflow: hidden; }
+  overflow: hidden;
+       display: flex;
+    flex-direction: row-reverse;
+   }
   .form-group:last-child {
     margin-bottom: 0px; }
 
@@ -393,7 +401,7 @@ input[type=checkbox]:not(old):checked + label > span:before {
 
 label {
   position: absolute;
-  left: 0;
+
   top: 50%;
   transform: translateY(-50%);
   -moz-transform: translateY(-50%);
@@ -709,6 +717,7 @@ label.valid {
     display: flex;
     justify-content: center;
     text-align: center;
+    direction: rtl;
 }
 
 .congratulation-wrapper {

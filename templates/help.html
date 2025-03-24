@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 0;
+        line-height: 1.8;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        text-align: right;
+        direction: rtl;
+    }
+
+    h1 {
+        color: #4A90E2;
+        font-size: 24px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #e6e9ef;
+        padding-bottom: 10px;
+    }
+
+    p {
+        color: #555555;
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.8;
+    }
+
+    ol {
+        padding: 0 25px;
+        color: #333333;
+        font-size: 16px;
+    }
+
+    li {
+        margin-bottom: 15px;
+        padding-left: 10px;
+        position: relative;
+    }
+
+    li strong {
+        color: #4A90E2;
+    }
+
+    li:before {
+
+        color: #4A90E2;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    .container a {
+        color: #4A90E2;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .container a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container">
+    <h1>راهنمای استفاده از سایت</h1>
+    <p>
+        به پینترست خوش آمدید! اینجا فضایی است برای الهام‌گیری، اشتراک‌گذاری و کسب درآمد از تصاویر شما.
+        در این وبسایت، می‌توانید تصاویر خلاقانه و منحصربه‌فرد خود را با دیگران به اشتراک بگذارید و اگر مایلید، برای نسخه‌های باکیفیت اصلی آن‌ها قیمت تعیین کنید.
+        دیگران می‌توانند تصاویر شما را خریداری کنند و به نسخه‌های باکیفیت دسترسی پیدا کنند.
+    </p>
+
+    <h1>مراحل استفاده از وب‌سایت</h1>
+    <ol>
+        <li>
+            <strong>ثبت‌نام:</strong>
+            ابتدا برای شروع، به بخش <strong>ثبت‌نام</strong> در بالای صفحه مراجعه کنید. اگر قبلاً حساب کاربری دارید، وارد شوید.
+        </li>
+        <li>
+            <strong>مشاهده و ذخیره تصاویر:</strong>
+            پس از ورود به حساب کاربری، می‌توانید تصاویر خلاقانه و مورد علاقه خود را مشاهده و آن‌ها را خریداری کنید.
+        </li>
+        <li>
+            <strong>اطلاعات بیشتر و نظردهی:</strong>
+            با کلیک روی هر تصویر، اطلاعات بیشتر درباره تصویر نمایش داده خواهد شد و امکان افزودن نظر برای شما فراهم می‌شود.
+        </li>
+        <li>
+            <strong>اشتراک‌گذاری تصاویر خلاقانه:</strong>
+            شما می‌توانید تصاویر خلاقانه و منحصربه‌فرد خود را با دیگران به اشتراک بگذارید. همچنین اگر مایل باشید، می‌توانید برای نسخه‌های باکیفیت اصلی تصاویر خود قیمت تعیین کنید.
+            کاربران دیگر می‌توانند تصاویر شما را خریداری کرده و به نسخه‌های باکیفیت آن‌ها دسترسی پیدا کنند.
+        </li>
+    </ol>
+</div>
+{% endblock %}

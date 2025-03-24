@@ -1,7 +1,15 @@
 body{
-    font-family: "Inconsolata", sans-serif;
+    font-family: "Baloo Bhaijaan 2", sans-serif !important;
     line-height: 1.5;
+    font-feature-settings: 'lnum' 0 !important;
 }
+
+header {
+  direction: rtl;
+  text-align: right;
+
+}
+
 
 .edit-profile-input{border: 2px #dddddd solid;}
 .about-input {border-radius: 20px;}
@@ -213,15 +221,18 @@ a{
 .overlay {
     position: absolute;
     bottom: 10px;
-    left: 10px;
+    right: 10px; /* قرارگیری کادر در سمت راست */
     background: rgba(0, 0, 0, 0.05);
     color: white;
     padding: 5px 10px;
     border-radius: 8px;
     display: flex;
     align-items: center;
+    justify-content: flex-start; /* چینش آیتم‌ها از راست به چپ */
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    flex-direction: row-reverse;
+    align-items: center;
 }
 
 .image-container:hover .overlay {
@@ -232,13 +243,16 @@ a{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    margin-right: 8px;
+    margin-left: 8px; /* فاصله بین عکس و نام */
+    margin-right: 0;
 }
 
 .uploader-name {
     font-size: 14px;
     font-weight: bold;
+    text-align: left; /* جهت متن به سمت چپ */
 }
+
 
 .navbarlogin{
     display: flex;
@@ -341,6 +355,8 @@ a{
   justify-content: space-between;
   border-bottom: 1px solid #ddd;
   padding: 10px 0;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
 }
 
 .image1 img {
@@ -353,13 +369,15 @@ a{
 
 .description {
   flex-grow: 1;
-  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .total-price {
   font-size: 18px;
   font-weight: bold;
-  margin-right: 10px;
+  margin-left: 20px;
   padding-top: 10px;
 }
 
@@ -380,10 +398,11 @@ a{
 
 
 .addtocart{
-    display: flex;
+    /*display: flex;
     justify-content: flex-end;
     margin-bottom: -20px;
-    margin-top: 5px;
+    margin-top: 5px;*/
+    margin-top: 80px;
 }
 
 .pad-text{
@@ -396,11 +415,71 @@ a{
 
 textarea {
     width: 100%;
-    height: 160px; /* تغییر ارتفاع */
-    resize: vertical; /* اجازه تغییر سایز به صورت عمودی */
+    height: 160px;
+    resize: vertical;
 }
 
-.empty{
+.empty {
     display: flex;
     justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+    direction: rtl;
+}
+
+.rtl-text{
+    text-align: right;
+}
+
+.pro
+{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.footer{
+    background-color: #f1f1f1;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    margin-top:20px;
+    text-align;:center;
+    color: #6c6c8d;
+}
+
+.jumbotron{
+    padding:2rem 1rem;
+    margin-bottom:2rem;
+    background-color:#e9ecef;
+    border-radius:.3rem;
+    direction: rtl;
+    width: 87%;
+    margin-left: auto;
+    margin-right: auto;
+    color: #3a3e6e;
+}
+@media (min-width:576px){.jumbotron{padding:4rem 2rem}}
+.jumbotron-fluid{
+padding-right:0;
+padding-left:0;
+border-radius:0}
+
+
+.baloo-bhaijaan-2-<uniquifier> {
+
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+h2 {
+    font-family: "Baloo Bhaijaan 2", sans-serif !important;
+}
+input {
+    font-family: "Baloo Bhaijaan 2", sans-serif !important;
 }

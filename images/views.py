@@ -114,7 +114,7 @@ def success_view(request):
 
 def image_detail(request, id):
     image = get_object_or_404(Image, id=id)
-
+    categories = image.categories.all()
     if request.method == 'POST' and 'like' in request.POST:
         Like.objects.get_or_create(image=image, user=request.user)
         return redirect('image_detail', id=image.id)
@@ -130,7 +130,7 @@ def image_detail(request, id):
     else:
         comment_form = CommentForm()
 
-    return render(request, 'images/image_detail.html', {'image': image, 'comment_form': comment_form})
+    return render(request, 'images/image_detail.html', {'image': image, 'comment_form': comment_form, 'categories': categories})
 
 
 @login_required
@@ -163,3 +163,7 @@ def image_like(request, image_id):
     image = get_object_or_404(Image, id=image_id)
     Like.objects.get_or_create(image=image, user=request.user)
     return redirect('image_detail', image_id=image.id)
+
+
+def help_page(request):
+    return render(request, 'help.html')  # این فایل HTML صفحه راهنما است

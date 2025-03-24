@@ -59,6 +59,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['text']
+        labels = {
+            'text': 'نظر شما',  # متن دلخواه برای لیبل
+        }
         widgets = {
             'text': forms.Textarea(attrs={'class': 'form-control'}),
         }

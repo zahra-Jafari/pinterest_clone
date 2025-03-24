@@ -3,20 +3,23 @@
 
 {% block content %}
 <div class="shopping-cart">
-  <div class="title"> Your shopping cart </div>
+  <div class="title"> سبد خرید شما </div>
 
   {% for image in cart.images.all %}
   <div class="item">
     <div class="buttons">
       <a href="{% url 'remove_from_cart' image.id %}" class="delete-btn">❌</a>
     </div>
-    <div class="image1">
-      <img src="{{ image.image.url }}" alt="{{ image.title }}" />
-    </div>
-    <div class="description">
-      <span>{{ image.title }}</span>
-    </div>
-    <div class="total-price">${{ image.price|floatformat:0 }}</div>
+
+      <div class="image1">
+        <img src="{{ image.image.url }}" alt="{{ image.title }}" />
+      </div>
+      <div class="description">
+        <span>{{ image.title }}</span>
+      </div>
+
+
+    <div class="total-price">$ {{ image.price|floatformat:0 }}</div>
     <div class="buy-button">
       <a href="{{ image.image.url }}" download class=""><svg width="55px" height="55px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M12 12V19M12 19L9.75 16.6667M12 19L14.25 16.6667M6.6 17.8333C4.61178 17.8333 3 16.1917 3 14.1667C3 12.498 4.09438 11.0897 5.59198 10.6457C5.65562 10.6268 5.7 10.5675 5.7 10.5C5.7 7.46243 8.11766 5 11.1 5C14.0823 5 16.5 7.46243 16.5 10.5C16.5 10.5582 16.5536 10.6014 16.6094 10.5887C16.8638 10.5306 17.1284 10.5 17.4 10.5C19.3882 10.5 21 12.1416 21 14.1667C21 16.1917 19.3882 17.8333 17.4 17.8333" stroke="#877373" stroke-linecap="round" stroke-linejoin="round"></path></g></svg></a>
     </div>
@@ -27,7 +30,7 @@
     <dotlottie-player  src="https://lottie.host/3b86b6b9-3eff-44dd-9350-5c6023efb147/SXjwU2gNYk.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" loop autoplay></dotlottie-player>
 
   </div>
-  <p class="empty">Your shopping cart is empty!!!</p>
+  <p class="empty">سبد خرید شما خالی است!!</p>
   {% endfor %}
 </div>
 

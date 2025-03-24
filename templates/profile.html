@@ -22,7 +22,7 @@
             <h2 class="my-4"><b>{{ user.username }}</b></h2>
             <div style="padding-bottom: 50px">
                 <input type="file" name="profile_picture" id="id_profile_picture" class="d-none" accept="image/*">
-                <button type="button" class="main-btn btn text-black" id="upload-button">Edit Profile</button>
+                <button type="button" class="main-btn btn text-black" id="upload-button">ویرایش پروفایل</button>
             </div>
         </form>
     </div>
@@ -51,7 +51,7 @@
             <a href="{% url 'image_upload' %}" class="" style="text-align: center;display: flex; justify-content: center; margin: 20px; ">
                 <dotlottie-player src="https://lottie.host/ad592483-03e3-412e-9b41-bfc06ab0983a/CONdhL9RpF.lottie" background="transparent" speed="1" style="width: 300px; height: 300px" class="test" loop autoplay></dotlottie-player>
             </a>
-            <p class="test">No images uploaded yet.</p>
+            <p class="test">هنوز تصویری بارگذازی نکرده اید.</p>
         </div>
         {% endfor %}
     </div>

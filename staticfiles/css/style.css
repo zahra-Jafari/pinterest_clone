@@ -243,6 +243,12 @@ h2 {
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%); }
 
+
+
+
+
+
+
 .signup {
   margin-bottom: 150px; }
 
@@ -256,8 +262,12 @@ h2 {
 .signup-image {
   margin: 0 55px; }
 
+
 .form-title {
-  margin-bottom: 33px; }
+  margin-bottom: 33px;
+  display: flex;
+  justify-content: center;
+  }
 
 .signup-image {
   margin-top: 45px; }

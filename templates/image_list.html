@@ -3,7 +3,14 @@
 {% load static %}
 
 <body>
+
+<div class="rtl-text jumbotron">
+            <h1 class="display-4">به پینترست خوش آمدید!</h1>
+            <hr class="my-4">
+            <p class="lead"> اینجا فضایی است برای الهام‌گیری، اشتراک‌گذاری و کسب درآمد از تصاویر شما. در این وبسایت، می‌توانید تصاویر خلاقانه و منحصربه‌فرد خود را با دیگران به اشتراک بگذارید و اگر مایلید، برای نسخه‌های باکیفیت اصلی آن‌ها قیمت تعیین کنید. دیگران می‌توانند تصاویر شما را خریداری کنند و به نسخه‌های باکیفیت دسترسی پیدا کنند.</p>
+        </div>
     <div class="body-w">
+
         {% for image in images %}
         <a href="{% url 'image_detail' image.id %}" class="c-a">
             <div class="image-container">
@@ -26,6 +33,10 @@
         </a>
     </div>
 </body>
+    <div class="footer">
+        <p>طراحی شده توسط زهرا جندقی جعفری</p>
+    </div>
+
 
 <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 
