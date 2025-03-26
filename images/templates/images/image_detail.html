@@ -25,7 +25,10 @@
 </style>
 <div class="col-md-2"></div>
 <div class="col-md-8 pt-2 pb-2 row pin-detail-container">
-    <div class="col-md-6">
+    <div class="col-md-6" style="display: flex; justify-content: space-between; flex-direction: column;">
+        <div>
+
+
         <h1 class="mt-3 rtl-text"><b>{{ image.title }}</b></h1>
         <p class="mt-3 rtl-text">{{ image.description }}</p>
         <h3 class="mt-3 text-success rtl-text"><b>${{ image.price|floatformat:0 }}</b></h3>
@@ -48,6 +51,7 @@
 
                 {% endif %}
             </form>
+        </div>
         </div>
         {% if user.is_authenticated %}
             <form action="{% url 'add_to_cart' image.id %}" method="post" class="addtocart">
@@ -99,7 +103,7 @@
             <div class="col-md-10">
                 <div class="border p-2 rounded" style="text-align: right;">
                     <b>{{ comment.user.username }}</b>
-                    <p class="text-muted">{{ comment.text }}</p>
+                    <p class="text-muted" style="direction: rtl;">{{ comment.text }}</p>
                 </div>
             </div>
         </div>
