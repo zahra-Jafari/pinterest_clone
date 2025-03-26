@@ -5,42 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign In Form by Colorlib</title>
+    <title>ورود به سیستم</title>
 
     <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
 </head>
 <body>
     <section class="sign-in">
         <div class="container">
             <div class="signin-content">
                 <div class="signin-image">
-                    <figure><img src="{% static 'images/signin-image.jpg' %}" alt="sing up image"></figure>
-                    <a href="{% url 'signup' %}" class="signup-image-link">هنوز ثبت نام نکرده اید؟</a>
+                    <figure><img src="{% static 'images/signin-image.jpg' %}" alt="ورود به سیستم"></figure>
+                    <a href="{% url 'signup' %}" class="signup-image-link">هنوز ثبت‌نام نکرده‌اید؟</a>
                 </div>
 
                 <div class="signin-form">
                     <h2 class="form-title">ورود</h2>
                     <form method="POST" class="register-form" id="login-form">
                         {% csrf_token %}
+
+                        <!-- پیام‌های خطا عمومی -->
+                        {% if form.non_field_errors %}
+                        <div class="error-message test">
+                            {% for error in form.non_field_errors %}
+                                <p style="color: red; text-align: center;">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+
                         <div class="form-group" >
-                            {{ form.username.errors }}
                             <label for="your_name"><i class="zmdi zmdi-account material-icons-name" aria-hidden="true"></i></label>
                             <input type="text" name="username" id="your_name" placeholder="نام کاربری" style="text-align: right;">
-
+                        </div>
+                        <div style="direction: rtl;">
+                            {% if form.username.errors %}
+                                {% for error in form.username.errors %}
+                                    <small class="error-message" style="margin-top: -20px; color: red; text-align: center; direction: rtl; display: flex; justify-content: flex-end;">
+                                        {{ error }}
+                                    </small>
+                                {% endfor %}
+                            {% endif %}
                         </div>
 
+
+                        <!-- فیلد رمز عبور -->
                         <div class="form-group">
-                            <label for="your_pass"><i class="zmdi zmdi-lock " aria-hidden="true"></i></label>
-                            {{ form.password.errors }}
+                            <label for="your_pass"><i class="zmdi zmdi-lock" aria-hidden="true"></i></label>
                             <input type="password" name="password" id="your_pass" placeholder="رمز عبور" style="text-align: right;">
                         </div>
+                        <div style="direction: rtl;">
+                            <small style="margin-top: -20px; color: red; text-align: center; direction: rtl; display: flex; justify-content: flex-end;">
+                                {{ form.password.errors.0 }}
+                            </small>
+                        </div>
+
+                        <!-- به خاطر سپردن کاربر -->
                         <div class="form-group">
                             <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
                             <label for="remember-me" class="label-agree-term"><span><span></span></span>مرا به خاطر بسپر</label>
                         </div>
 
+                        <!-- دکمه ورود -->
                         <div class="bg-2">
                             <button class="button1 button--nina button--text-thick button--text-upper button--size-s" data-text="ورود">
                                <span>ورود</span>
@@ -48,20 +74,22 @@
                         </div>
                     </form>
 
+                    <!-- پیام‌های سیستم -->
                     {% if messages %}
-                    <div class="error-message">
-                        {% for message in messages %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
-                    </div>
+    <div>
+        {% for message in messages %}
+            <p style="color: red;">{{ message }}</p>
+        {% endfor %}
+    </div>
+
+
                     {% endif %}
                 </div>
             </div>
         </div>
     </section>
 
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 {% endblock %}

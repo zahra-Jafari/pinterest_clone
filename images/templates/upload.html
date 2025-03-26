@@ -21,7 +21,18 @@
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <input type="text" id="image-title" name="title" placeholder="عنوان" style="text-align: right;">
+                    <div style="direction: rtl;">
+                        <small style="color: red; text-align: center; direction: rtl; display: flex; justify-content: flex-end;">
+                            {{ form.title.errors.0 }}
+                        </small>
+                    </div>
+
                     <input type="file" id="image-upload" name="image">
+                    <div style="direction: rtl;">
+                        <small style="color: red; text-align: center; direction: rtl; display: flex; justify-content: flex-end;">
+                            {{ form.image.errors.0 }}
+                        </small>
+                    </div>
                     <textarea id="image-description" name="description" placeholder="توضیحات" style="text-align: right;"></textarea>
                     <div class="price-section">
                         <input type="number" id="image-price" name="price" placeholder="قیمت" style="text-align: right;">

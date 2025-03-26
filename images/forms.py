@@ -1,20 +1,56 @@
 from .models import Image, Comment, Category, Profile
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 from django import forms
 
 
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Username'})
+        widget=forms.TextInput(attrs={'placeholder': 'نام کاربری'}),
+        error_messages={
+            'required': 'لطفاً نام کاربری را وارد کنید.',
+        }
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Password'})
+        widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور'}),
+        error_messages={
+            'required': 'لطفاً رمز عبور را وارد کنید.',
+        }
     )
+
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            raise forms.ValidationError(
+                _("حساب کاربری شما غیرفعال است."),
+                code='inactive',
+            )
 
 
 class SignUpForm(UserCreationForm):
-    email = forms.EmailField(max_length=200, help_text='Required')
+    email = forms.EmailField(
+        max_length=200,
+        help_text='الزامی است.',
+        error_messages={
+            'required': 'لطفاً ایمیل خود را وارد کنید.',
+            'invalid': 'لطفاً یک ایمیل معتبر وارد کنید.',
+        }
+    )
+    username = forms.CharField(
+        error_messages={
+            'required': 'لطفاً نام کاربری را وارد کنید.',
+        }
+    )
+    password1 = forms.CharField(
+        error_messages={
+            'required': 'لطفاً رمز عبور را وارد کنید.',
+        }
+    )
+    password2 = forms.CharField(
+        error_messages={
+            'required': 'لطفاً تکرار رمز عبور را وارد کنید.',
+        }
+    )
 
     class Meta:
         model = User
@@ -28,6 +64,7 @@ class UserProfileForm(forms.ModelForm):
 
 
 class ImageForm(forms.ModelForm):
+
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -43,6 +80,12 @@ class ImageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['categories'].queryset = Category.objects.all()
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        if not title:
+            raise forms.ValidationError("وارد کردن عنوان اجباری است.")
+        return title
 
     class Meta:
         model = Image

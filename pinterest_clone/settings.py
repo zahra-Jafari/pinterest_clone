@@ -1,4 +1,5 @@
 from pathlib import Path
+from django.contrib.messages import constants as messages
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -9,7 +10,7 @@ SECRET_KEY = 'replace_with_your_secret_key'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["pinterest-clone-jq45.onrender.com", "127.0.0.1", "localhost", 'zahrajj.pythonanywhere.com']
+ALLOWED_HOSTS = ["pinterest-clone-jq45.onrender.com", "127.0.0.1", "localhost", 'zahrajandaghi.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,8 +30,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',  # یا error
+}
+
 
 ROOT_URLCONF = 'pinterest_clone.urls'
 
@@ -74,15 +83,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+LANGUAGE_CODE = 'fa'
+TIME_ZONE = 'Asia/Tehran'
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
+
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent

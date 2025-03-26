@@ -3,6 +3,7 @@ from .models import Image, Like, Comment, Cart, Category, UserProfile, Profile
 from .forms import ImageForm, CommentForm, CategoryForm, SignUpForm, UserProfileForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.messages import get_messages
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views import generic
@@ -53,13 +54,16 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            messages.success(request, "ورود با موفقیت انجام شد.")
             return redirect('image_list')
         else:
-            for field in form.errors:
-                for error in form.errors[field]:
-                    messages.error(request, error)
-    else:
-        form = CustomLoginForm()
+            messages.error(request, "نام کاربری یا رمز عبور اشتباه است.")
+
+    storage = get_messages(request)
+    for message in storage:
+        print(message)  # پیام‌ها را بررسی کنید
+
+    form = CustomLoginForm()
     return render(request, 'login.html', {'form': form})
 
 
